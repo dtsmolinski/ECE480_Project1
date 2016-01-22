@@ -14,10 +14,7 @@ PROJECT NOTES
         # ColSize = (Actual Col Size -1)
         # Must change vales to float to handle normalization step
 ACTIVE TODO
-        # TODO WONT WORK WITH SECOND EXAMPLE CASE -> BUG
-        # TODO Exception handling for 2Di
-        # TODO 2Dii Need a way to check for negative values in ratio array... algorithm doesnt use negative values
-        # TODO how many times do we loop the whole algorithm? Are there other checks for NO MAX VALUE
+        # TODO Implment dynamic user input. Text File? CMD line input?
         # TODO Exeption handling for user input EX. variable size and constraint size
         # TODO Print Output matrix in a nice format
 
@@ -32,26 +29,32 @@ def main():
     #### 1. Prompt User
     #       a. Size 2,3, or 4 variable objective function
     #ObjFunctSize = 2
-    RowSize = 4         # 0 to 4
-    ColSize = 2         # 0 to 2
-    '''RowSize = 5         # 0 to 5
-    ColSize = 3         # 0 to 3'''
+    # Example 1 -> in class
+    #RowSize = 4         # 0 to 4
+    #ColSize = 2         # 0 to 2
+    # Example 2 -> on blackboard
+    RowSize = 5         # 0 to 5
+    ColSize = 3         # 0 to 3
     #           i. Enter obj funt values -> insert into array
-    ObjFunctArray =  [float(-40),float(-50),float(0),float(0),float(0)]
-    '''ObjFunctArray =  [float(-4),float(-6),float(0),float(0),float(0),float(0)]'''
+    # Example 1 -> in class
+    '''ObjFunctArray =  [float(-40),float(-50),float(0),float(0),float(0)]'''
+    # Example 2 -> on blackboard
+    ObjFunctArray =  [float(-4),float(-6),float(0),float(0),float(0),float(0)]
 
     #       b. Number of constraints
     #           i. Enter constraint values (in inequality form) -> insert into ixj 2d array
-    Const1Array = [float(1),float(2),float(1),float(0),float(40)] #40
-    Const2Array = [float(4),float(3),float(0),float(1),float(120)] #120
-    '''Const1Array = [float(-1),float(1),float(1),float(0),float(0),float(11)]
+    # Example 1 -> in class
+    '''Const1Array = [float(1),float(2),float(1),float(0),float(40)] #40
+    Const2Array = [float(4),float(3),float(0),float(1),float(120)] #120'''
+    # Example 2 -> on blackboard
+    Const1Array = [float(-1),float(1),float(1),float(0),float(0),float(11)]
     Const2Array = [float(1),float(1),float(0),float(1),float(0),float(27)]
-    Const3Array = [float(2),float(5),float(0),float(0),float(0),float(90)]'''
+    Const3Array = [float(2),float(5),float(0),float(0),float(0),float(90)]
     #### 2. Start Algorithm
     #       a. Convert inequality constraints to equation using slack variables
     #       b. Create initial Augmented array using constraint equations and objective equation
-    SimplexArray = [Const1Array,Const2Array,ObjFunctArray]
-    '''SimplexArray = [Const1Array,Const2Array,Const3Array,ObjFunctArray]'''
+    '''SimplexArray = [Const1Array,Const2Array,ObjFunctArray]'''
+    SimplexArray = [Const1Array,Const2Array,Const3Array,ObjFunctArray]
 
     print(SimplexArray)
     # repeat algorithn until RETURN 0 or RETURN 1
@@ -75,6 +78,9 @@ def main():
             return 1
         #           ii. Unimplmented. if tie at minimum ratio -> choose either THIS IS HANDLED BY THE MIN FUCTION
         # Find minimum value in array THIS DOES NOT REMOVE NEGATIVE VALUES
+        for i in range(len(RatioArray)):    # Takes care of negative values
+            if RatioArray[i] < 0 :
+                RatioArray[i] = "NULL"
         PivotRowVal = min(RatioArray)
         print("PivotRowVal: ", PivotRowVal)
         PivotRow = RatioArray.index(PivotRowVal)
